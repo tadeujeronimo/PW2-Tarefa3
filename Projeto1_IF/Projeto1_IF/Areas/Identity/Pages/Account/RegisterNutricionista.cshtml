@@ -1,0 +1,144 @@
+@page
+@model Projeto1_IF.Areas.Identity.Pages.Account.RegisterNutricionistaModel
+@{
+    ViewData["Title"] = "Cadastro de Nutricionista";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-7">
+        <form id="registerNutricionistaForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            @* ACESSO *@
+            <h5 class="mb-3">Acesso ao sistema</h5>
+
+            <div class="mb-3">
+                <label asp-for="Input.Email" class="form-label">E-mail</label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Password" class="form-label">Senha</label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.ConfirmPassword" class="form-label">Confirmar senha</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <hr />
+            @* DADOS PESSOAIS *@
+            <h5 class="mb-3">Dados pessoais</h5>
+
+            <div class="mb-3">
+                <label asp-for="Input.Profissional.Nome" class="form-label">Nome completo *</label>
+                <input asp-for="Input.Profissional.Nome" class="form-control" />
+                <span asp-validation-for="Input.Profissional.Nome" class="text-danger"></span>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="Input.Profissional.Cpf" class="form-label">CPF *</label>
+                    <input asp-for="Input.Profissional.Cpf" class="form-control" placeholder="000.000.000-00" />
+                    <span asp-validation-for="Input.Profissional.Cpf" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Input.Profissional.CrmCrn" class="form-label">CRN</label>
+                    <input asp-for="Input.Profissional.CrmCrn" class="form-control" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Profissional.Especialidade" class="form-label">Especialidade</label>
+                <input asp-for="Input.Profissional.Especialidade" class="form-control" />
+            </div>
+
+            <hr />
+            @* ENDEREÇO *@
+            <h5 class="mb-3">Endereço</h5>
+
+            <div class="mb-3">
+                <label asp-for="Input.Profissional.Logradouro" class="form-label">Logradouro</label>
+                <input asp-for="Input.Profissional.Logradouro" class="form-control" />
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="Input.Profissional.Numero" class="form-label">Número *</label>
+                    <input asp-for="Input.Profissional.Numero" class="form-control" />
+                    <span asp-validation-for="Input.Profissional.Numero" class="text-danger"></span>
+                </div>
+                <div class="col-md-8">
+                    <label asp-for="Input.Profissional.Bairro" class="form-label">Bairro *</label>
+                    <input asp-for="Input.Profissional.Bairro" class="form-control" />
+                    <span asp-validation-for="Input.Profissional.Bairro" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="Input.Profissional.Cep" class="form-label">CEP *</label>
+                    <input asp-for="Input.Profissional.Cep" class="form-control" placeholder="00000-000" />
+                    <span asp-validation-for="Input.Profissional.Cep" class="text-danger"></span>
+                </div>
+                <div class="col-md-8">
+                    <label asp-for="Input.Profissional.IdCidade" class="form-label">Cidade *</label>
+                    <select asp-for="Input.Profissional.IdCidade" class="form-control" asp-items="Model.ListaCidades">
+                        <option value="">-- Selecione --</option>
+                    </select>
+                    <span asp-validation-for="Input.Profissional.IdCidade" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+            @* CONTATO *@
+            <h5 class="mb-3">Contato</h5>
+
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label asp-for="Input.Profissional.Ddd1" class="form-label">DDD</label>
+                    <input asp-for="Input.Profissional.Ddd1" class="form-control" maxlength="2" placeholder="00" />
+                </div>
+                <div class="col-md-9">
+                    <label asp-for="Input.Profissional.Telefone1" class="form-label">Telefone</label>
+                    <input asp-for="Input.Profissional.Telefone1" class="form-control" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label asp-for="Input.Profissional.Ddd2" class="form-label">DDD (2)</label>
+                    <input asp-for="Input.Profissional.Ddd2" class="form-control" maxlength="2" placeholder="00" />
+                </div>
+                <div class="col-md-9">
+                    <label asp-for="Input.Profissional.Telefone2" class="form-label">Telefone (2)</label>
+                    <input asp-for="Input.Profissional.Telefone2" class="form-control" />
+                </div>
+            </div>
+
+            <hr />
+            @* PLANO *@
+            <h5 class="mb-3">Plano e remuneração</h5>
+
+            <div class="mb-3">
+                <label asp-for="Input.Profissional.IdPlano" class="form-label">Plano *</label>
+                <select asp-for="Input.Profissional.IdPlano" class="form-control" asp-items="Model.ListaPlanos">
+                    <option value="">-- Selecione o plano --</option>
+                </select>
+                <span asp-validation-for="Input.Profissional.IdPlano" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Profissional.Salario" class="form-label">Salário</label>
+                <input asp-for="Input.Profissional.Salario" class="form-control" placeholder="0,00" />
+            </div>
+
+            <div class="mt-4">
+                <button id="registerSubmit" type="submit" class="btn btn-primary btn-lg w-100">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

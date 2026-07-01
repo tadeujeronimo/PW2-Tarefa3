@@ -1,0 +1,44 @@
+@model Projeto1_IF.Models.TbProfissional
+
+@{
+    ViewData["Title"] = "Excluir profissional";
+    bool possuiPacientes = (bool?)ViewData["PossuiPacientes"] ?? false;
+}
+
+<h1>Excluir profissional</h1>
+
+<h3>Tem certeza que deseja excluir este profissional?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Nome</dt>
+        <dd class="col-sm-9">@Model.Nome</dd>
+        <dt class="col-sm-3">CPF</dt>
+        <dd class="col-sm-9">@Model.Cpf</dd>
+        <dt class="col-sm-3">Especialidade</dt>
+        <dd class="col-sm-9">@Model.Especialidade</dd>
+        <dt class="col-sm-3">Cidade</dt>
+        <dd class="col-sm-9">@Model.IdCidadeNavigation?.Nome</dd>
+    </dl>
+
+    @if (ViewData["ErrorMessage"] != null)
+    {
+        <p class="text-danger">@ViewData["ErrorMessage"]</p>
+    }
+
+    @if (possuiPacientes)
+    {
+        <p class="text-danger">
+            Este profissional possui pacientes cadastrados e <strong>não pode ser excluído</strong>
+            enquanto houver pacientes vinculados a ele.
+        </p>
+        <a class="btn btn-secondary" asp-action="Index">Voltar para a lista</a>
+    }
+    else
+    {
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="IdProfissional" />
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            <a asp-action="Index">Voltar para a lista</a>
+        </form>
+    }
+</div>

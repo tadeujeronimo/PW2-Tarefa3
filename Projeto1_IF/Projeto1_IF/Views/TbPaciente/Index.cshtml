@@ -1,0 +1,125 @@
+@model IEnumerable<Projeto1_IF.Models.TbPaciente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeResponsavel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Etnia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </th>
+            <th>
+                Cidade
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelResidencial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelComercial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelCelular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profissao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlgAtleta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlgGestante)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Rg)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DataNascimento)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NomeResponsavel)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Etnia)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Endereco)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Bairro)
+            </td>
+            <td>
+                @item.IdCidadeNavigation?.Nome
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TelResidencial)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TelComercial)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TelCelular)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Profissao)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FlgAtleta)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FlgGestante)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdPaciente">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdPaciente">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdPaciente">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

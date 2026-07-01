@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|c:\\users\\tadeu\\source\\repos\\projeto1_if\\projeto1_if\\controllers\\tbpacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|solutionrelative:projeto1_if\\controllers\\tbpacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|c:\\users\\tadeu\\source\\repos\\projeto1_if\\projeto1_if\\views\\tbpaciente\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|solutionrelative:projeto1_if\\views\\tbpaciente\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|c:\\users\\tadeu\\source\\repos\\projeto1_if\\projeto1_if\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|solutionrelative:projeto1_if\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|c:\\users\\tadeu\\source\\repos\\projeto1_if\\projeto1_if\\wwwroot\\js\\jquery.validate.pt-br.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{15B4D5D3-475C-4382-B830-4D81FE4C343D}|Projeto1_IF\\Projeto1_IF.csproj|solutionrelative:projeto1_if\\wwwroot\\js\\jquery.validate.pt-br.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "jquery.validate.pt-br.js",
+              "DocumentMoniker": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\wwwroot\\js\\jquery.validate.pt-br.js",
+              "RelativeDocumentMoniker": "Projeto1_IF\\wwwroot\\js\\jquery.validate.pt-br.js",
+              "ToolTip": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\wwwroot\\js\\jquery.validate.pt-br.js",
+              "RelativeToolTip": "Projeto1_IF\\wwwroot\\js\\jquery.validate.pt-br.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-06-16T03:50:57.195Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TbPacientesController.cs",
+              "DocumentMoniker": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\Controllers\\TbPacientesController.cs",
+              "RelativeDocumentMoniker": "Projeto1_IF\\Controllers\\TbPacientesController.cs",
+              "ToolTip": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\Controllers\\TbPacientesController.cs",
+              "RelativeToolTip": "Projeto1_IF\\Controllers\\TbPacientesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T02:29:56.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "Projeto1_IF\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "Projeto1_IF\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-16T03:51:21.503Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\Views\\TbPaciente\\Create.cshtml",
+              "RelativeDocumentMoniker": "Projeto1_IF\\Views\\TbPaciente\\Create.cshtml",
+              "ToolTip": "C:\\Users\\tadeu\\source\\repos\\Projeto1_IF\\Projeto1_IF\\Views\\TbPaciente\\Create.cshtml",
+              "RelativeToolTip": "Projeto1_IF\\Views\\TbPaciente\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-16T03:51:41.013Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
