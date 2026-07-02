@@ -31,6 +31,10 @@ Depois, abra o endereço que aparecer no navegador.
 - As views de paciente estão em `Views/TbPaciente` e são acessadas pelo controller `TbPacientesController`.
 - O projeto inclui `Areas/Identity/Pages/Account/RegisterMedico` e `RegisterNutricionista` como páginas próprias de autocadastro.
 
+## Vídeo explicativo no YouTube (não listado):
+
+[https://youtu.be/HFmbPuLHp_U](https://youtu.be/HFmbPuLHp_U)
+
 ## Autor
 
 - **Nome**: Tadeu dos Santos Jerônimo

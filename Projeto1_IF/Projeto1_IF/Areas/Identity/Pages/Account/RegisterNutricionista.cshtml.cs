@@ -1,7 +1,7 @@
+// Tadeu dos Santos Jerônimo
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +12,7 @@ using Projeto1_IF.Models;
 
 namespace Projeto1_IF.Areas.Identity.Pages.Account
 {
+    // Registro de Nutricionista: numa única tela o usuário cria o login e os dados profissionais.
     [AllowAnonymous]
     public class RegisterNutricionistaModel : PageModel
     {
@@ -33,9 +34,7 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
-
         public SelectList ListaCidades { get; set; }
-
         public SelectList ListaPlanos { get; set; }
 
         public class InputModel
@@ -56,6 +55,8 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "A senha e a confirmação de senha não conferem.")]
             public string ConfirmPassword { get; set; }
 
+            // Dados do profissional em ViewModel próprio, sem IdProfissional,
+            // IdUser ou IdContrato — esses são definidos pelo servidor.
             public ProfissionalRegistroInput Profissional { get; set; } = new();
         }
 
@@ -77,53 +78,50 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
 
             try
             {
-                var user = new IdentityUser
-                {
-                    UserName = Input.Email,
-                    Email = Input.Email
-                };
-
+                // 1. Cria o usuário no Identity.
+                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
-                    {
                         ModelState.AddModelError(string.Empty, error.Description);
-                    }
                     await CarregarListasAsync();
                     return Page();
                 }
 
+                // 2. Atribui o papel de Médico.
                 await _userManager.AddToRoleAsync(user, "Nutricionista");
 
+                // 3. Cria o contrato com o plano escolhido.
                 var contrato = new TbContrato
                 {
-                    IdPlano = Input.Profissional.IdPlano,
+                    IdPlano   = Input.Profissional.IdPlano,
                     DataInicio = DateTime.Now,
-                    DataFim = DateTime.Now.AddMonths(1)
+                    DataFim   = DateTime.Now.AddMonths(1)
                 };
                 _context.TbContrato.Add(contrato);
                 await _context.SaveChangesAsync();
 
+                // 4. Cria o TbProfissional vinculando o usuário e o contrato.
                 var profissional = new TbProfissional
                 {
-                    IdUser = user.Id,
+                    IdUser     = user.Id,
                     IdContrato = contrato.IdContrato,
-                    Nome = Input.Profissional.Nome,
-                    Cpf = Input.Profissional.Cpf,
-                    CrmCrn = Input.Profissional.CrmCrn,
+                    Nome       = Input.Profissional.Nome,
+                    Cpf        = Input.Profissional.Cpf,
+                    CrmCrn     = Input.Profissional.CrmCrn,
                     Especialidade = Input.Profissional.Especialidade,
                     Logradouro = Input.Profissional.Logradouro,
-                    Numero = Input.Profissional.Numero,
-                    Bairro = Input.Profissional.Bairro,
-                    Cep = Input.Profissional.Cep,
-                    IdCidade = Input.Profissional.IdCidade,
-                    Ddd1 = Input.Profissional.Ddd1,
-                    Telefone1 = Input.Profissional.Telefone1,
-                    Ddd2 = Input.Profissional.Ddd2,
-                    Telefone2 = Input.Profissional.Telefone2,
-                    Salario = Input.Profissional.Salario
+                    Numero     = Input.Profissional.Numero,
+                    Bairro     = Input.Profissional.Bairro,
+                    Cep        = Input.Profissional.Cep,
+                    IdCidade   = Input.Profissional.IdCidade,
+                    Ddd1       = Input.Profissional.Ddd1,
+                    Telefone1  = Input.Profissional.Telefone1,
+                    Ddd2       = Input.Profissional.Ddd2,
+                    Telefone2  = Input.Profissional.Telefone2,
+                    Salario    = Input.Profissional.Salario
                 };
                 _context.TbProfissional.Add(profissional);
                 await _context.SaveChangesAsync();
@@ -133,8 +131,7 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "Não foi possível concluir o cadastro. " +
-                    "Tente novamente e, se o problema persistir, contate o administrador do sistema.");
+                ModelState.AddModelError(string.Empty, "Não foi possível concluir o cadastro. Tente novamente.");
                 await CarregarListasAsync();
                 return Page();
             }
@@ -142,14 +139,11 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
 
         private async Task CarregarListasAsync()
         {
-            ListaCidades = new SelectList(await _context.TbCidade.OrderBy(c => c.Nome).ToListAsync(), "IdCidade", "Nome");
+            ListaCidades = new SelectList(
+                await _context.TbCidade.OrderBy(c => c.Nome).ToListAsync(), "IdCidade", "Nome");
 
             ListaPlanos = new SelectList(
-                await _context.TbPlano
-                    .Where(p => p.Nome.Contains("utri"))
-                    .OrderBy(p => p.Nome)
-                    .ToListAsync(),
-                "IdPlano", "Nome");
+                await _context.TbPlano.OrderBy(p => p.Nome).ToListAsync(), "IdPlano", "Nome");
         }
     }
 }
