@@ -1,73 +1,72 @@
 @model Projeto1_IF.Models.TbPaciente
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do paciente";
 }
 
-<h1>Details</h1>
+<h1>Detalhes do paciente</h1>
 
 <div>
-    <h4>TbPaciente</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
+            Nome
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rg)
+            RG
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Rg)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cpf)
+            CPF
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Cpf)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataNascimento)
+            Data de nascimento
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataNascimento)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeResponsavel)
+            Nome do responsável
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NomeResponsavel)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sexo)
+            Sexo
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Sexo)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Etnia)
+            Etnia
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Etnia)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco)
+            Endereço
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Endereco)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bairro)
+            Bairro
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Bairro)
@@ -81,42 +80,42 @@
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TelResidencial)
+            Telefone residencial
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TelResidencial)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TelComercial)
+            Telefone comercial
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TelComercial)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TelCelular)
+            Celular
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TelCelular)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Profissao)
+            Profissão
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Profissao)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FlgAtleta)
+            É atleta?
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FlgAtleta)
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FlgGestante)
+            É gestante?
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FlgGestante)
@@ -124,6 +123,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdPaciente">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-idpaciente="@Model?.IdPaciente" class="btn btn-primary">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+    </div>
 </div>

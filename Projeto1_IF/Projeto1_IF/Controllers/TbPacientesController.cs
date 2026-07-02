@@ -1,4 +1,3 @@
-// Tadeu dos Santos Jerônimo
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +7,6 @@ using Projeto1_IF.Models;
 
 namespace Projeto1_IF.Controllers
 {
-    // Só Médico e Nutricionista cadastram/gerenciam pacientes. Cada um só
-    // enxerga os pacientes vinculados a si mesmo, através da tabela
-    // TbMedicoPaciente (igual à dica do enunciado do trabalho final).
     [Authorize(Roles = "Medico,Nutricionista")]
     public class TbPacientesController : Controller
     {
@@ -23,11 +19,6 @@ namespace Projeto1_IF.Controllers
             _userManager = userManager;
         }
 
-        // Busca o IdProfissional correspondente ao usuário logado.
-        // Retorna null se, por algum motivo, não existir (não deveria
-        // acontecer, já que o cadastro de paciente exige login como
-        // Medico/Nutricionista, e esses papéis só existem vinculados a um
-        // TbProfissional criado no autocadastro).
         private async Task<int?> ObterIdProfissionalLogadoAsync()
         {
             var userId = _userManager.GetUserId(User);
@@ -49,9 +40,6 @@ namespace Projeto1_IF.Controllers
                 .AnyAsync(m => m.IdPaciente == idpaciente && m.IdProfissional == meuId);
         }
 
-        // GET: TBPACIENTES
-        // Só mostra os pacientes vinculados (TbMedicoPaciente) ao
-        // profissional logado.
         public async Task<IActionResult> Index()
         {
             var meuId = await ObterIdProfissionalLogadoAsync();
@@ -66,11 +54,9 @@ namespace Projeto1_IF.Controllers
                 .AsNoTracking()
                 .ToListAsync();
 
-            return View(pacientes);
+            return View("~/Views/TbPaciente/Index.cshtml", pacientes);
         }
 
-        // GET: TBPACIENTES/Details/5
-        // Tadeu dos Santos Jerônimo
         public async Task<IActionResult> Details(int? idpaciente)
         {
             if (idpaciente == null)
@@ -92,23 +78,16 @@ namespace Projeto1_IF.Controllers
                 return NotFound();
             }
 
-            return View(tbpaciente);
+            return View("~/Views/TbPaciente/Details.cshtml", tbpaciente);
         }
 
         // GET: TBPACIENTES/Create
         public IActionResult Create()
         {
-            // ViewData com a lista de cidades para popular o dropdown (asp-items),
-            // exibindo o Nome da cidade em vez do IdCidade.
             ViewData["IdCidade"] = new SelectList(_context.TbCidade.OrderBy(c => c.Nome), "IdCidade", "Nome");
-            return View();
+            return View("~/Views/TbPaciente/Create.cshtml");
         }
 
-        // POST: TBPACIENTES/Create
-        // Tadeu dos Santos Jerônimo
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // O IdPaciente (chave primária) NÃO entra no Bind: é gerado pelo banco.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Nome,Rg,Cpf,DataNascimento,NomeResponsavel,Sexo,Etnia,Endereco,Bairro,IdCidade,TelResidencial,TelComercial,TelCelular,Profissao,FlgAtleta,FlgGestante")] TbPaciente tbpaciente)
@@ -126,8 +105,6 @@ namespace Projeto1_IF.Controllers
                     _context.Add(tbpaciente);
                     await _context.SaveChangesAsync();
 
-                    // Vincula o paciente recém-criado ao profissional logado,
-                    // através da tabela TbMedicoPaciente.
                     _context.TbMedicoPaciente.Add(new TbMedicoPaciente
                     {
                         IdPaciente = tbpaciente.IdPaciente,
@@ -145,11 +122,9 @@ namespace Projeto1_IF.Controllers
             }
 
             ViewData["IdCidade"] = new SelectList(_context.TbCidade.OrderBy(c => c.Nome), "IdCidade", "Nome", tbpaciente.IdCidade);
-            return View(tbpaciente);
+            return View("~/Views/TbPaciente/Create.cshtml", tbpaciente);
         }
 
-        // GET: TBPACIENTES/Edit/5
-        // Tadeu dos Santos Jerônimo
         public async Task<IActionResult> Edit(int? idpaciente)
         {
             if (idpaciente == null)
@@ -169,17 +144,9 @@ namespace Projeto1_IF.Controllers
             }
 
             ViewData["IdCidade"] = new SelectList(_context.TbCidade.OrderBy(c => c.Nome), "IdCidade", "Nome", tbpaciente.IdCidade);
-            return View(tbpaciente);
+            return View("~/Views/TbPaciente/Edit.cshtml", tbpaciente);
         }
 
-        // POST: TBPACIENTES/Edit/5
-        // Tadeu dos Santos Jerônimo
-        // Em vez de receber a entidade inteira via [Bind] (sujeito a overposting),
-        // buscamos a entidade já rastreada pelo contexto e usamos TryUpdateModelAsync
-        // informando explicitamente a lista de propriedades permitidas.
-        // O método é renomeado para EditPost (e mapeado de volta para "Edit" com
-        // [ActionName]) porque não pode ter o mesmo nome e a mesma assinatura do
-        // método GET acima (ambos recebem só "idpaciente").
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -234,11 +201,9 @@ namespace Projeto1_IF.Controllers
             }
 
             ViewData["IdCidade"] = new SelectList(_context.TbCidade.OrderBy(c => c.Nome), "IdCidade", "Nome", tbpacienteToUpdate.IdCidade);
-            return View(tbpacienteToUpdate);
+            return View("~/Views/TbPaciente/Edit.cshtml", tbpacienteToUpdate);
         }
 
-        // GET: TBPACIENTES/Delete/5
-        // Tadeu dos Santos Jerônimo
         public async Task<IActionResult> Delete(int? idpaciente, bool? saveChangesError = false)
         {
             if (idpaciente == null)
@@ -265,7 +230,7 @@ namespace Projeto1_IF.Controllers
                 ViewData["ErrorMessage"] = "A exclusão falhou. Tente novamente e, se o problema persistir, contate o administrador do sistema.";
             }
 
-            return View(tbpaciente);
+            return View("~/Views/TbPaciente/Delete.cshtml", tbpaciente);
         }
 
         // POST: TBPACIENTES/Delete/5

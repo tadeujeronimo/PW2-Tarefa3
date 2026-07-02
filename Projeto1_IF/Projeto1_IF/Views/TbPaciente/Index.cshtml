@@ -1,66 +1,66 @@
 @model IEnumerable<Projeto1_IF.Models.TbPaciente>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pacientes";
 }
 
-<h1>Index</h1>
+<h1>Pacientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Novo paciente</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                Nome
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rg)
+                RG
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cpf)
+                CPF
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
+                Data de nascimento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NomeResponsavel)
+                Nome do responsável
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sexo)
+                Sexo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Etnia)
+                Etnia
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Endereco)
+                Endereço
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bairro)
+                Bairro
             </th>
             <th>
                 Cidade
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TelResidencial)
+                Telefone residencial
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TelComercial)
+                Telefone comercial
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TelCelular)
+                Celular
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Profissao)
+                Profissão
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FlgAtleta)
+                É atleta?
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FlgGestante)
+                É gestante?
             </th>
-            <th></th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -115,9 +115,11 @@
                 @Html.DisplayFor(model => item.FlgGestante)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPaciente">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPaciente">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPaciente">Delete</a>
+                <div class="btn-group btn-group-sm" role="group">
+                    <a asp-action="Edit" asp-route-idpaciente="@item.IdPaciente" class="btn btn-outline-primary">Editar</a>
+                    <a asp-action="Details" asp-route-idpaciente="@item.IdPaciente" class="btn btn-outline-secondary">Detalhes</a>
+                    <a asp-action="Delete" asp-route-idpaciente="@item.IdPaciente" class="btn btn-outline-danger">Excluir</a>
+                </div>
             </td>
         </tr>
 }

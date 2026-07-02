@@ -1,4 +1,3 @@
-// Tadeu dos Santos Jerônimo
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +7,6 @@ using Projeto1_IF.Models;
 
 namespace Projeto1_IF.Controllers
 {
-    // Só usuários autenticados com algum desses papéis entram aqui.
-    // - Medico / Nutricionista: só enxergam e editam o PRÓPRIO cadastro.
-    // - GerenteMedico / GerenteNutricionista: editam, veem e excluem os
-    //   profissionais da sua categoria (mas não criam: criação só pelo
-    //   autocadastro em RegisterMedico/RegisterNutricionista).
-    // - GerenteGeral: acesso completo (exceto Create, igual aos outros).
     [Authorize(Roles = "Medico,Nutricionista,GerenteMedico,GerenteNutricionista,GerenteGeral")]
     public class TbProfissionalController : Controller
     {
@@ -26,8 +19,6 @@ namespace Projeto1_IF.Controllers
             _userManager = userManager;
         }
 
-        // Determina se o usuário logado pode acessar (ver/editar) o
-        // profissional dono do IdUser informado.
         private async Task<bool> PodeAcessarAsync(string idUserDoProfissional)
         {
             if (User.IsInRole("GerenteGeral"))
@@ -47,7 +38,6 @@ namespace Projeto1_IF.Controllers
                 return dono != null && await _userManager.IsInRoleAsync(dono, "Nutricionista");
             }
 
-            // Médico ou Nutricionista comum: só o próprio cadastro.
             return idUserDoProfissional == _userManager.GetUserId(User);
         }
 
@@ -59,8 +49,6 @@ namespace Projeto1_IF.Controllers
         // GET: TbProfissional
         public async Task<IActionResult> Index()
         {
-            // Médico/Nutricionista não têm uma "lista": só o próprio
-            // cadastro existe pra eles. Manda direto pros detalhes.
             if (!EhGerente())
             {
                 var meuId = _userManager.GetUserId(User);
@@ -91,8 +79,6 @@ namespace Projeto1_IF.Controllers
                 var idsNutricionistas = (await _userManager.GetUsersInRoleAsync("Nutricionista")).Select(u => u.Id).ToList();
                 consulta = consulta.Where(p => idsNutricionistas.Contains(p.IdUser));
             }
-            // GerenteGeral: sem filtro adicional, vê todos.
-
             return View(await consulta.ToListAsync());
         }
 
@@ -142,18 +128,11 @@ namespace Projeto1_IF.Controllers
                 return Forbid();
             }
 
-            // O próprio profissional não pode mudar o CPF; o gerente pode.
             ViewData["PodeEditarCpf"] = EhGerente();
             await CarregarViewDataAsync(tbprofissional);
             return View(tbprofissional);
         }
 
-        // POST: TbProfissional/Edit/5
-        // Em vez de [Bind], usamos TryUpdateModelAsync com a lista exata de
-        // campos permitidos. Quando NÃO é gerente (ou seja, é o próprio
-        // profissional editando o próprio cadastro), o campo Cpf fica de
-        // fora dessa lista — então mesmo que alguém manipule o formulário e
-        // envie um Cpf diferente, ele é ignorado.
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -223,8 +202,6 @@ namespace Projeto1_IF.Controllers
             return View(tbprofissionalToUpdate);
         }
 
-        // GET: TbProfissional/Delete/5
-        // Somente gerentes podem excluir.
         public async Task<IActionResult> Delete(int? idprofissional, bool? saveChangesError = false)
         {
             if (!EhGerente())

@@ -5,14 +5,10 @@ using Projeto1_IF.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// db_IFContext usa a mesma string que ApplicationDbContext (banco db_IF).
-// Se existir uma entrada "db_IFContext" no appsettings.json ela é ignorada
-// aqui — ambos os contextos precisam apontar para o mesmo banco.
 builder.Services.AddDbContext<db_IFContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -24,11 +20,6 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Garante que as roles (autorizações) usadas pelo sistema existam no banco.
-// Médico e Nutricionista são atribuídas no autocadastro; as três de
-// Gerente* precisam ser associadas manualmente a um usuário direto no
-// banco de dados (AspNetUsers / AspNetUserRoles), conforme pedido no
-// enunciado do trabalho final.
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -41,10 +32,40 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    // Seed dos planos caso a tabela esteja vazia (o SQL do banco não
-    // incluiu INSERTs para tbPlano). Os dois primeiros são para Médico
-    // e os dois últimos para Nutricionista, facilitando o filtro no
-    // cadastro (bônus do enunciado do trabalho final).
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    async Task SeedGerenteAsync(string username, string email, string role)
+    {
+        var existing = await userManager.FindByEmailAsync(email);
+        if (existing == null)
+        {
+            var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = true };
+            var result = await userManager.CreateAsync(user, "Gerente@123");
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, role);
+            }
+        }
+        else
+        {
+            if (existing.UserName != email)
+            {
+                existing.UserName = email;
+                existing.NormalizedUserName = email.ToUpperInvariant();
+                await userManager.UpdateAsync(existing);
+            }
+
+            if (!await userManager.IsInRoleAsync(existing, role))
+            {
+                await userManager.AddToRoleAsync(existing, role);
+            }
+        }
+    }
+
+    await SeedGerenteAsync("gerente.medico", "gerente.medico@example.com", "GerenteMedico");
+    await SeedGerenteAsync("gerente.nutri", "gerente.nutri@example.com", "GerenteNutricionista");
+    await SeedGerenteAsync("gerente.geral", "gerente.geral@example.com", "GerenteGeral");
+
     var db = scope.ServiceProvider.GetRequiredService<db_IFContext>();
     if (!db.TbPlano.Any())
     {
@@ -58,7 +79,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -66,7 +86,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

@@ -1,4 +1,3 @@
-// Tadeu dos Santos Jerônimo
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
@@ -13,10 +12,6 @@ using Projeto1_IF.Models;
 
 namespace Projeto1_IF.Areas.Identity.Pages.Account
 {
-    // Autocadastro de Nutricionista. Página própria (não a Register padrão do
-    // Identity), pois aqui juntamos numa única tela o cadastro de
-    // login/senha (Identity) com os dados de TbProfissional, conforme
-    // pedido no enunciado do trabalho final.
     [AllowAnonymous]
     public class RegisterNutricionistaModel : PageModel
     {
@@ -61,9 +56,6 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "A senha e a confirmação de senha não conferem.")]
             public string ConfirmPassword { get; set; }
 
-            // Único objeto que carrega os dados de TbProfissional vindos
-            // do formulário. Não contém IdProfissional, IdUser nem
-            // IdContrato (esses são definidos no servidor).
             public ProfissionalRegistroInput Profissional { get; set; } = new();
         }
 
@@ -105,7 +97,6 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
 
                 await _userManager.AddToRoleAsync(user, "Nutricionista");
 
-                // Cria o contrato a partir do plano escolhido pelo usuário.
                 var contrato = new TbContrato
                 {
                     IdPlano = Input.Profissional.IdPlano,
@@ -153,9 +144,6 @@ namespace Projeto1_IF.Areas.Identity.Pages.Account
         {
             ListaCidades = new SelectList(await _context.TbCidade.OrderBy(c => c.Nome).ToListAsync(), "IdCidade", "Nome");
 
-            // Bônus do enunciado: mostrar somente os planos de Nutricionista
-            // nessa página. Ajuste o filtro abaixo conforme o nome exato
-            // dos planos no seu banco (ex.: "Plano Nutricional").
             ListaPlanos = new SelectList(
                 await _context.TbPlano
                     .Where(p => p.Nome.Contains("utri"))
